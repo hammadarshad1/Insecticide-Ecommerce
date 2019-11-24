@@ -63,9 +63,9 @@
 						<button class="btn icon-search"></button> -->
 
 						<div style="border: 1px solid grey;">
-							<form method="POST" id='search-product-form'>
+							<form method="POST" id='search-product-form' action="{% url 'Search' %}">
 								{% csrf_token %}
-								<input type="text" id="search-products"  style="padding: 5px; width:80%; border: none;" placeholder="Search your products">
+								<input type="text" id="search-products" name="search"  style="padding: 5px; width:80%; border: none;" placeholder="Search your products">
 								<button class="btn icon-search" type="submit"></button>
 							</form>
 						</div>
@@ -310,15 +310,15 @@ function getCookie(c_name)
 	return "";
 }
 
-	$("#search-product-form").on('submit', function(e){
+	$("#search-product-form").on('submit', function(){
 		e.preventDefault(e);
 		console.log($("#search-products").text());
 		req = $.ajax({
 			headers: {"X-CSRFToken": getCookie("csrftoken")},
 			type: 'POST',
-			url : 'product/search/',
+			url : '/product/search',
 			data : {
-				'search':$("#search-products").val()
+				'search':$("#search-products").val(),
 			},
 			dataType: 'json'
 		})
