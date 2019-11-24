@@ -23,6 +23,7 @@ class Products(models.Model):
     marketPrice = models.FloatField()
     discountedPrice = models.FloatField()
     productCategory = models.ForeignKey(Category, on_delete=models.CASCADE)
+    # productStock = models.IntegerField()
 
     def __str__(self):
         return self.productTitle

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Vegefoods - Free Bootstrap 4 Template by Colorlib</title>
+    <title>Insecticide</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -53,18 +53,29 @@
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="index.html">Vegefoods care</a>
+	      <a class="navbar-brand" href="{% url 'Home' %}">Insecticide</a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
+						<!-- <input type="text"  style="padding: 5px; width: 20em; border: none;" placeholder="Search your products">
+						<button class="btn icon-search"></button> -->
+
+						<div style="border: 1px solid grey;">
+							<form method="POST" id='search-product-form'>
+								{% csrf_token %}
+								<input type="text" id="search-products"  style="padding: 5px; width:80%; border: none;" placeholder="Search your products">
+								<button class="btn icon-search" type="submit"></button>
+							</form>
+						</div>
 	        <ul class="navbar-nav ml-auto">
-			  <li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
-			  <li class="nav-item"><a href="#" class="nav-link">Products</a></li>
-	          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-	          <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+				
+			  	<li class="nav-item active"><a href="{% url 'Home' %}" class="nav-link">Home</a></li>
+			  	<li class="nav-item"><a href="#" class="nav-link">Products</a></li>
+	          	<li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+			  	<li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+			  	<li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
 
 	        </ul>
 	      </div>
@@ -275,9 +286,41 @@
   <script src="{% static 'Ecommerce/js/jquery.animateNumber.min.js' %}"></script>
   <script src="{% static 'Ecommerce/js/bootstrap-datepicker.js' %}"></script>
   <script src="{% static 'Ecommerce/js/scrollax.min.js' %}"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-  <script src="{% static 'Ecommerce/js/google-map.js' %}"></script>
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script> -->
+  <!-- <script src="{% static 'Ecommerce/js/google-map.js' %}"></script> -->
   <script src="{% static 'Ecommerce/js/main.js' %}"></script>
     
   </body>
 </html>
+
+<script>
+function getCookie(c_name)
+{
+	if (document.cookie.length > 0)
+	{
+		c_start = document.cookie.indexOf(c_name + "=");
+		if (c_start != -1)
+		{
+			c_start = c_start + c_name.length + 1;
+			c_end = document.cookie. indexOf(";", c_start);
+			if(c_end == -1) c_end = document.cookie.length;
+			return unescape(document.cookie.substring(c_start, c_end));
+		}
+	}
+	return "";
+}
+
+	$("#search-product-form").on('submit', function(e){
+		e.preventDefault(e);
+		console.log($("#search-products").text());
+		req = $.ajax({
+			headers: {"X-CSRFToken": getCookie("csrftoken")},
+			type: 'POST',
+			url : 'product/search/',
+			data : {
+				'search':$("#search-products").val()
+			},
+			dataType: 'json'
+		})
+	})
+</script>
