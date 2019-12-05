@@ -1,0 +1,24 @@
+{% extends 'Ecommerce/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<!-- login -->
+<div class="w3_login">
+        <div class="w3_login_module">
+            <div class="module form-module">
+              <div class="toggle">
+                <!-- <div class="tooltip">Click Me</div> -->
+              </div>
+              <div class="form">
+                <h3>Login</h3>
+                <form method="post">
+                    {% csrf_token %}
+                  {{ form | crispy }}
+                  <input type="submit" value="Login">
+                </form>
+              </div>
+              <div class="cta"><a href="#">Forgot your password?</a></div>
+            </div>
+        </div>
+    </div>
+<!-- //login -->
+{% endblock %}

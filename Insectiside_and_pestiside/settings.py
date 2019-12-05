@@ -31,13 +31,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'Ecommerce.apps.EcommerceConfig',
+    'users.apps.UsersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Ecommerce.apps.EcommerceConfig',
+    'crispy_forms',
     # 'mathfilters',
 ]
 
@@ -124,6 +126,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+LOGIN_REDIRECT_URL = 'Home'
+LOGOUT_REDIRECT_URL = 'Login'
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
