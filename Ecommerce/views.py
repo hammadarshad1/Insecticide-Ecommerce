@@ -2,18 +2,10 @@ from django.shortcuts import render, redirect
 from . import models
 from django.views.generic import ListView
 import mysql.connector
+from django.contrib import messages
+from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 
-# Create your views here.
-
-# def home(request):
-#     if request.method == "POST":
-#         searchText = request.POST.get("search")
-#         print(searchText)
-#         # searchProduct(request, searchProduct)
-#         # return redirect('Search')
-#     products = models.Products.objects.all()
-#     print(products)
-#     return render(request, 'Ecommerce/home.html', {'products': products})
 
 conn = mysql.connector.connect(user='admin', host='localhost', port='3306', password='Gre@ter834', database="Ecommerce")
 
@@ -63,3 +55,23 @@ def err404(request):
 
 def errNotFound(request):
     return render(request, 'Ecommerce/pr-not-found.html')
+
+def addtocart(request, pk):
+    product = models.Products.objects.get(productId = pk)
+    if models.Cart.objects.filter(Q(productId=product) & Q(userId=request.user)):
+        messages.warning(request, 'This product is already in Your Cart')
+        return redirect('Cart')
+    else:    
+        cart = models.Cart(productId=product, userId=request.user, productQuantity=1)
+        cart.save()
+        messages.success(request, 'Product Added to Cart')
+        return redirect('Home')
+
+@login_required
+def product_cart(request):
+    products = models.Cart.objects.filter(userId = request.user)
+    return render(request,'Ecommerce/cart.html', {'products':products})
+
+def delete_cart_item(request, pk):
+    c = models.Cart.objects.filter(productId = pk, userId=request.user).delete()
+    return redirect('Cart')

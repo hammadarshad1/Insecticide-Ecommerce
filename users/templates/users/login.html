@@ -1,24 +1,46 @@
 {% extends 'Ecommerce/base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-<!-- login -->
-<div class="w3_login">
-        <div class="w3_login_module">
-            <div class="module form-module">
-              <div class="toggle">
-                <!-- <div class="tooltip">Click Me</div> -->
-              </div>
-              <div class="form">
-                <h3>Login</h3>
-                <form method="post">
-                    {% csrf_token %}
-                  {{ form | crispy }}
-                  <input type="submit" value="Login">
-                </form>
-              </div>
-              <div class="cta"><a href="#">Forgot your password?</a></div>
+<div  >
+    {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+              {{ message }}
             </div>
-        </div>
+          {% endfor %}
+    {% endif %}
+  </div>
+<div id="mainBody" style="width: 100px;">
+    <div class="container">
+    <div class="row">
+    <div class="span8">
+    
+    <h2> Login</h2>	
+    <div class="well">
+    <!--
+    <div class="alert alert-info fade in">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>Lorem Ipsum is simply dummy</strong> text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
     </div>
-<!-- //login -->
+    <div class="alert fade in">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>Lorem Ipsum is simply dummy</strong> text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+    </div>
+    <div class="alert alert-block alert-error fade in">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>Lorem Ipsum is simply</strong> dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+    </div> -->
+    <form class="form-horizontal" width='500px' method="POST">
+        {% csrf_token %}
+
+            {{ form | crispy }}
+            <button class="btn btn-primary" type="submit">Login</button>
+        
+    </form>
+</div>
+
+</div>
+</div>
+</div>
+</div>
 {% endblock %}

@@ -3,6 +3,7 @@ from PIL import Image
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
 import sys
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -22,6 +23,7 @@ class Products(models.Model):
     productSales = models.IntegerField()
     marketPrice = models.FloatField()
     discountedPrice = models.FloatField()
+    deliveryCharges = models.FloatField()
     productCategory = models.ForeignKey(Category, on_delete=models.CASCADE)
     # productStock = models.IntegerField()
 
@@ -60,6 +62,13 @@ class Products(models.Model):
 #     commentText = models.TextField()
 #     productId = models.ForeignKey(Products, on_delete=models.CASCADE)
 
-# class Cart(models.Model):
-#     cartId = models.AutoField(primary_key=True)
-#     productId = models.ForeignKey(Products, on_delete=models.CASCADE)
+class Cart(models.Model):
+    cartId = models.AutoField(primary_key=True)
+    productId = models.ForeignKey(Products, on_delete=models.CASCADE)
+    userId = models.ForeignKey(User, on_delete=models.CASCADE)
+    productQuantity = models.IntegerField()
+
+class SliderImage(models.Model):
+    sliderImgId = models.AutoField(primary_key=True)
+    sliderImg = models.ImageField(upload_to='Slider-Image')
+

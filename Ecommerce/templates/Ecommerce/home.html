@@ -1,51 +1,46 @@
 {% extends 'Ecommerce/base.html' %}
+{% load shuffle %}
 {% block content %}
-    {% for product in object_list %}
-        <div class="col-md-3 w3ls_w3l_banner_left"  style="width:300px;">
-            <div class="hover14 column"  style="width:290px; height: 1000px;">
-            <div class="agile_top_brand_left_grid w3l_agile_top_brand_left_grid" style="height: 400px;">
-                <div class="tag"><img src="images/tag.png" alt=" " class="img-responsive" /></div>
-                <div class="agile_top_brand_left_grid1" style="height: 380px;">
-                    <figure>
-                        <div class="snipcart-item block">
-                            <div class="snipcart-thumb" >
-                                <a href="{% url 'Product-View' product.productId %}" ><img src="{{ product.productImg.url }}" style="width: 200px; height: 200px;" alt=" " class="img-responsive" /></a>
-                                <a href="{% url 'Product-View' product.productId %}"><p style="text-align: center;">{{ product.productTitle }}</p></a>
-                                <h4 style="text-align: center;">Rs{{ product.discountedPrice }} <span>Rs{{ product.marketPrice }}</span></h4>
-                                <b>Rating: <span id='stars{{ forloop.counter }}'></span></b>
-                            </div>
-                            <script>
-                                document.getElementById("stars{{ forloop.counter }}").innerHTML = getStars({{ product.productRatings }});
-                        
-                        function getStars(rating) {
-                        
-                          // Round to nearest half
-                          rating = Math.round(rating * 2) / 2;
-                          let output = [];
-                        
-                          // Append all the filled whole stars
-                          for (var i = rating; i >= 1; i--)
-                            output.push('<i class="fa fa-star" aria-hidden="true" style="color: gold;"></i>&nbsp;');
-                        
-                          // If there is a half a star, append it
-                          if (i == .5) output.push('<i class="fa fa-star-half-o" aria-hidden="true" style="color: gold;"></i>&nbsp;');
-                        
-                          // Fill the empty stars
-                          for (let i = (5 - rating); i >= 1; i--)
-                            output.push('<i class="fa fa-star-o" aria-hidden="true" style="color: gold;"></i>&nbsp;');
-                        
-                          return output.join('');
-                        
-                        }
-                            </script>
-                        </div>
-                    </figure>
-                </div>
-            </div>
-            </div>
-        </div>
-    {% endfor %}
-
-
-
+            
+    <h2 >&nbsp;&nbsp;&nbsp;&nbsp;Latest Products </h2>
+    <ul class="thumbnails">
+        {% for product in object_list|shuffle %}
+              <li class="span3">
+              <div class="thumbnail" style="width: 270px;height: 310.5px;">
+                  <a  href="{% url 'Product-View' product.productId %}" style="width:260px; height: 160px;"><img src="{{ product.productImg.url }}" alt="" style="width: 160px; height: 160px;"/></a>
+                  <div class="caption">
+                  <h5>{{ product.productTitle }}</h5>
+                  
+                  <h4 style="text-align: justify;"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="{% url 'Add-To-Cart' product.productId %}">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">Rs{{ product.marketPrice }}</a></h4>
+                  <b>Rating: <span id='stars{{ forloop.counter }}'></span></b>
+              </div>
+              </div>
+              </li>
+              <script>
+                
+                  document.getElementById("stars{{ forloop.counter }}").innerHTML = getStars({{ product.productRatings }});
+          
+          function getStars(rating) {
+          
+            // Round to nearest half
+            rating = Math.round(rating * 2) / 2;
+            let output = [];
+          
+            // Append all the filled whole stars
+            for (var i = rating; i >= 1; i--)
+              output.push('<i class="fa fa-star" aria-hidden="true" style="color: gold;"></i>&nbsp;');
+          
+            // If there is a half a star, append it
+            if (i == .5) output.push('<i class="fa fa-star-half-o" aria-hidden="true" style="color: gold;"></i>&nbsp;');
+          
+            // Fill the empty stars
+            for (let i = (5 - rating); i >= 1; i--)
+              output.push('<i class="fa fa-star-o" aria-hidden="true" style="color: gold;"></i>&nbsp;');
+          
+            return output.join('');
+          
+          }
+              </script>
+        {% endfor %}
+    </ul>
 {% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'Ecommerce/base.html' %}
+{% load mathfilters %}
+{% block content %}
+    <div id="mainBody">
+        <div class="container">
+        <div class="row">
+
+        <div class="span9">
+        <ul class="breadcrumb">
+            <li><a href="{% url 'Home' %}">Home</a> <span class="divider">/</span></li>
+            <li class="active"> SHOPPING CART</li>
+        </ul>
+        <h3>  SHOPPING CART [ <small>{{ Cart }} Item(s) </small>]<a href="{% url 'Home' %}" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a></h3>	
+        <hr class="soft"/>		
+                
+        <table class="table table-bordered" id='cartTbl'>
+                <thead>
+                    <tr>
+                    <th>Product</th>
+                    <th>Description</th>
+                    <th>Quantity/Update</th>
+                    <th>Price</th>
+                    <th width='120px'>Delivery Charge</th>
+                    <th>Total</th>
+                    </tr>
+                </thead>
+                    <tbody>
+                    {% for product in products %}
+                        <tr>
+                        <td> <img width="60" src="{{product.productId.productImg.url}}" alt=""/></td>
+                        <td>{{ product.productId.productTitle }}</td>
+                        <td>
+                            <div class="input-append"><input class="span1" style="max-width:34px" placeholder="1" id="appendedInputButtons" size="16" type="text" value="{{ product.productQuantity }}"><button class="btn" type="button" id='minus{{ forloop.counter }}'><i class="icon-minus"></i></button><button class="btn" type="button" id='plus{{ forloop.counter }}'><i class="icon-plus"></i></button><a href="{% url 'Delete-Cart-Item' product.productId.productId %}"><button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				</div>
+                        </td>
+                        <td>Rs{{ product.productId.discountedPrice|mul:product.productQuantity }}</td>
+                        <td>Rs{{ product.productId.deliveryCharges }}</td>
+                        <td>Rs{{ product.productId.discountedPrice|mul:product.productQuantity|add:product.productId.deliveryCharges }}</td>
+                        </tr>
+                        <script>
+                            p{{ forloop.counter }} = {{ product.productQuantity }}
+                            $('#cartTbl').on('click','#plus{{ forloop.counter }}', function(){
+                            var tr = $(this).closest('tr');
+                            plusBtn = tr.find('td:eq(2)');
+                            plus = plusBtn.find('input');
+                            p{{ forloop.counter }}++;
+                            plus.val(p{{ forloop.counter }});
+                            if (plus.val() == {{ product.productQuantity|add:1 }}){
+                                $("#minus{{ forloop.counter }}").removeAttr('disabled');
+                            }
+                        })
+                        $('#cartTbl').on('click','#minus{{ forloop.counter }}', function(){
+                            var tr = $(this).closest('tr');
+                            plusBtn = tr.find('td:eq(2)');
+                            plus = plusBtn.find('input');
+                            p{{ forloop.counter }}--;
+                            plus.val(p{{ forloop.counter }});
+                            if (plus.val() == {{ product.productQuantity }}){
+                                $("#minus{{ forloop.counter }}").attr('disabled','disabled');
+                            }
+                        })
+                        $(document).ready(function(){
+            $('table').find($('tbody').find($('tr').find($('td').find('#minus{{ forloop.counter }}')))).each(function(){
+                console.log($('table').find($('tbody').find($('tr').find($('td').find('#minus{{ forloop.counter }}')))))
+            $(this).attr('disabled', 'disabled');
+            })
+        })
+                        </script>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                
+                	
+        <a href="{% url 'Home' %}" class="btn btn-large"><i class="icon-arrow-left"></i> Continue Shopping </a>
+        <a href="login.html" class="btn btn-large pull-right">Next <i class="icon-arrow-right"></i></a>
+        
+    </div>
+    </div></div>
+    </div>
+    <!-- MainBody End ============================= -->
+{% endblock %}
