@@ -127,9 +127,11 @@
     <ul id="topMenu" class="nav pull-right">
     <li class=""><a href="special_offer.html">Specials Offer</a></li>
     <li class="">
-                <a href="{% url 'Cart' %}"><span class="btn  btn-primary"><i class="icon-shopping-cart icon-white"></i> [ {{ Cart }} ] Items in your cart </span> </a> 
+                <a href="{% url 'Cart' %}"><span class="btn  btn-primary"><i class="icon-shopping-cart icon-white"></i>[ {{ Cart }} ]</span> </a> 
             </li>
-    <li class=""><a href="{% url 'Profile' %}"><i class="fas fa-user"></i></a></li>
+    {% if user.is_authenticated %}
+        <li class=""><a href="{% url 'Profile' %}"><i class="fas fa-user"></i></a></li>
+    {% endif %}
     <li class="">
         {% if user.is_authenticated %}
             <a href="{% url 'Logout' %}" role="button"  style="padding-right:0"><span class="btn btn-large btn-danger">Logout</span></a>

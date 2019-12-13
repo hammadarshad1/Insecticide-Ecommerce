@@ -13,13 +13,14 @@
                         </a>
                 </div>
                 <div class="span6">
-                    <h3>{{ product.productTitle }}  </h3>
+                    <h3>{{ product.productTitle }}</h3>
                     <hr class="soft"/>
                     <form class="form-horizontal qtyFrm">
                     <div class="control-group">
-                        <label class="control-label"><span>{{ product.marketPrice }}</span></label>
+                        <label class="control-label"><span>{{ product.discountedPrice }}</span></label>
                         <div class="controls">
-                        <a href="{% url 'Add-To-Cart' product.productId %}"><button type="button" class="btn btn-large btn-primary pull-right"> Add to cart <i class=" icon-shopping-cart"></i></button>
+                        <input type="number" class="span1" placeholder="Qty."/>
+                        <a href="{% url 'Add-To-Cart' product.productId %}"><button type="button" class="btn btn-large btn-primary pull-right"> Add to cart <i class=" icon-shopping-cart"></i></button></a>
                         </div>
                     </div>
                     </form>
@@ -58,256 +59,108 @@
             <hr class="soft"/>
             <div class="tab-content">
                 <div class="tab-pane" id="listView">
-                    <div class="row">	  
-                        <div class="span2">
-                            <img src="{{ product.productImg.url }}" alt=""/>
-                        </div>
-                        <div class="span4">
-                            <h3>New | Available</h3>				
-                            <hr class="soft"/>
-                            <h5>Product Name </h5>
-                            <p>
-                            Nowadays the lingerie industry is one of the most successful business spheres.We always stay in touch with the latest fashion tendencies - 
-                            that is why our goods are so popular..
-                            </p>
-                            <a class="btn btn-small pull-right" href="product_details.html">View Details</a>
-                            <br class="clr"/>
-                        </div>
-                        <div class="span3 alignR">
-                        <form class="form-horizontal qtyFrm">
-                        <h3> $222.00</h3>
-                        <label class="checkbox">
-                            <input type="checkbox">  Adds product to compair
-                        </label><br/>
-                        <div class="btn-group">
-                        <a href="product_details.html" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
-                        <a href="product_details.html" class="btn btn-large"><i class="icon-zoom-in"></i></a>
-                        </div>
-                            </form>
-                        </div>
-                </div>
-                <hr class="soft"/>
-                <div class="row">	  
-                        <div class="span2">
-                            <img src="themes/images/products/5.jpg" alt=""/>
-                        </div>
-                        <div class="span4">
-                            <h3>New | Available</h3>				
-                            <hr class="soft"/>
-                            <h5>Product Name </h5>
-                            <p>
-                            Nowadays the lingerie industry is one of the most successful business spheres.We always stay in touch with the latest fashion tendencies - 
-                            that is why our goods are so popular..
-                            </p>
-                            <a class="btn btn-small pull-right" href="product_details.html">View Details</a>
-                            <br class="clr"/>
-                        </div>
-                        <div class="span3 alignR">
-                        <form class="form-horizontal qtyFrm">
-                            <h3> $222.00</h3>
-                            <label class="checkbox">
-                            <input type="checkbox">  Adds product to compair
-                            </label><br/>
+                    {% for p in relatedProducts %}
+                        <div class="row">	  
+                            <div class="span2">
+                                <img src="{{ p.productImg.url }}" alt=""/>
+                            </div>
+                            <div class="span4">
+                                <h3><a href="{% url 'Product-View' p.productId %}">{{ p.productTitle }}</a></h3>				
+                                <hr class="soft"/>
+                                <h5>Product Name</h5>
+                                <!-- <p>
+                                Nowadays the lingerie industry is one of the most successful business spheres.We always stay in touch with the latest fashion tendencies - 
+                                that is why our goods are so popular..
+                                </p> -->
+                                <a class="btn btn-small pull-right" href="product_details.html">View Details</a>
+                                <br class="clr"/>
+                            </div>
+                            <div class="span3 alignR">
+                            <form class="form-horizontal qtyFrm">
+                            <h3> Rs{{ p.discountedPrice }}</h3>
+                            <br/>
                             <div class="btn-group">
                             <a href="product_details.html" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
                             <a href="product_details.html" class="btn btn-large"><i class="icon-zoom-in"></i></a>
                             </div>
-                        </form>
-                        </div>
-                </div>
-                <hr class="soft"/>
-                <div class="row">	  
-                        <div class="span2">
-                        <img src="themes/images/products/6.jpg" alt=""/>
-                        </div>
-                        <div class="span4">
-                            <h3>New | Available</h3>				
-                            <hr class="soft"/>
-                            <h5>Product Name </h5>
-                            <p>
-                            Nowadays the lingerie industry is one of the most successful business spheres.We always stay in touch with the latest fashion tendencies - 
-                            that is why our goods are so popular..
-                            </p>
-                            <a class="btn btn-small pull-right" href="product_details.html">View Details</a>
-                            <br class="clr"/>
-                        </div>
-                        <div class="span3 alignR">
-                        <form class="form-horizontal qtyFrm">
-                        <h3> $222.00</h3>
-                        <label class="checkbox">
-                            <input type="checkbox">  Adds product to compair
-                        </label><br/>
-                    <div class="btn-group">
-                    <a href="product_details.html" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
-                    <a href="product_details.html" class="btn btn-large"><i class="icon-zoom-in"></i></a>
+                                </form>
+                                <b style="float: unset;">Rating: <span id='stars{{ p.productId }}'></span></b>
+
+                            </div>
+
                     </div>
-                            </form>
-                        </div>
-                </div>
-                <hr class="soft"/>
-                <div class="row">	  
-                        <div class="span2">
-                        <img src="themes/images/products/7.jpg" alt=""/>
-                        </div>
-                        <div class="span4">
-                            <h3>New | Available</h3>				
-                            <hr class="soft"/>
-                            <h5>Product Name </h5>
-                            <p>
-                            Nowadays the lingerie industry is one of the most successful business spheres.We always stay in touch with the latest fashion tendencies - 
-                            that is why our goods are so popular..
-                            </p>
-                            <a class="btn btn-small pull-right" href="product_details.html">View Details</a>
-                            <br class="clr"/>
-                        </div>
-                        <div class="span3 alignR">
-                            <form class="form-horizontal qtyFrm">
-                            <h3> $222.00</h3>
-                            <label class="checkbox">
-                            <input type="checkbox">  Adds product to compair
-                            </label><br/>
-                            <div class="btn-group">
-                            <a href="product_details.html" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
-                            <a href="product_details.html" class="btn btn-large"><i class="icon-zoom-in"></i></a>
-                            </div>
-                            </form>
-                        </div>
-                </div>
+                    <script>
                 
+                            document.getElementById("stars{{ p.productId }}").innerHTML = getStars({{ p.productRatings }});
+                    
+                    function getStars(rating) {
+                    
+                      // Round to nearest half
+                      rating = Math.round(rating * 2) / 2;
+                      let output = [];
+                    
+                      // Append all the filled whole stars
+                      for (var i = rating; i >= 1; i--)
+                        output.push('<i class="fa fa-star" aria-hidden="true" style="color: gold;"></i>&nbsp;');
+                    
+                      // If there is a half a star, append it
+                      if (i == .5) output.push('<i class="fa fa-star-half-o" aria-hidden="true" style="color: gold;"></i>&nbsp;');
+                    
+                      // Fill the empty stars
+                      for (let i = (5 - rating); i >= 1; i--)
+                        output.push('<i class="fa fa-star-o" aria-hidden="true" style="color: gold;"></i>&nbsp;');
+                    
+                      return output.join('');
+                    
+                    }
+                        </script>
+                    {% endfor %}
                 <hr class="soft"/>
-                <div class="row">	  
-                        <div class="span2">
-                        <img src="themes/images/products/8.jpg" alt=""/>
-                        </div>
-                        <div class="span4">
-                            <h3>New | Available</h3>				
-                            <hr class="soft"/>
-                            <h5>Product Name </h5>
-                            <p>
-                            Nowadays the lingerie industry is one of the most successful business spheres.We always stay in touch with the latest fashion tendencies - 
-                            that is why our goods are so popular..
-                            </p>
-                            <a class="btn btn-small pull-right" href="product_details.html">View Details</a>
-                            <br class="clr"/>
-                        </div>
-                        <div class="span3 alignR">
-                            <form class="form-horizontal qtyFrm">
-                            <h3> $222.00</h3>
-                            <label class="checkbox">
-                            <input type="checkbox">  Adds product to compair
-                            </label><br/>
-                            <div class="btn-group">
-                            <a href="product_details.html" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
-                            <a href="product_details.html" class="btn btn-large"><i class="icon-zoom-in"></i></a>
-                            </div>
-                            </form>
-                        </div>
-                </div>
-                <hr class="soft"/>
-                    <div class="row">	  
-                        <div class="span2">
-                        <img src="themes/images/products/9.jpg" alt=""/>
-                        </div>
-                        <div class="span4">
-                            <h3>New | Available</h3>				
-                            <hr class="soft"/>
-                            <h5>Product Name </h5>
-                            <p>
-                            Nowadays the lingerie industry is one of the most successful business spheres.We always stay in touch with the latest fashion tendencies - 
-                            that is why our goods are so popular..
-                            </p>
-                            <a class="btn btn-small pull-right" href="product_details.html">View Details</a>
-                            <br class="clr"/>
-                        </div>
-                        <div class="span3 alignR">
-                            <form class="form-horizontal qtyFrm">
-                            <h3> $222.00</h3>
-                            <label class="checkbox">
-                            <input type="checkbox">  Adds product to compair
-                            </label><br/>
-                            <div class="btn-group">
-                            <a href="product_details.html" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
-                            <a href="product_details.html" class="btn btn-large"><i class="icon-zoom-in"></i></a>
-                            </div>
-                            </form>
-                        </div>
-                </div>
-                <hr class="soft"/>
+
             </div>
                 <div class="tab-pane active" id="blockView">
                     <ul class="thumbnails">
+                    {% for p in relatedProducts %}
                         <li class="span3">
-                        <div class="thumbnail">
-                            <a href="product_details.html"><img src="themes/images/products/10.jpg" alt=""/></a>
+                        <div class="thumbnail" style="width: 270px;height: 310.5px;">
+                            <a href="{{ p.productImg.url }}" style="width:260px; height: 160px;"><img src="{{ p.productImg.url }}" alt="" style="width: 160px; height: 160px;"/></a>
                             <div class="caption">
-                            <h5>Manicure &amp; Pedicure</h5>
-                            <p> 
-                                Lorem Ipsum is simply dummy text. 
-                            </p>
-                            <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">&euro;222.00</a></h4>
+                            <h5><a href="{% url 'Product-View' product.productId %}">{{ p.productTitle }}</a></h5>
+                            <h4 style="text-align:center"><a class="btn" href="{% url 'Product-View' p.productId %}"> <i class="icon-zoom-in"></i></a>
+                                <a class="btn" href="{% url 'Add-To-Cart' product.productId %}">Add to <i class="icon-shopping-cart"></i></a> 
+                                <a class="btn btn-primary" href="#">Rs{{ p.discountedPrice }}</a></h4>
                             </div>
+                            <b style="float: unset;">Rating: <span id='stars{{ forloop.counter }}'></span></b>
+
                         </div>
                         </li>
-                        <li class="span3">
-                        <div class="thumbnail">
-                            <a href="product_details.html"><img src="themes/images/products/11.jpg" alt=""/></a>
-                            <div class="caption">
-                            <h5>Manicure &amp; Pedicure</h5>
-                            <p> 
-                                Lorem Ipsum is simply dummy text. 
-                            </p>
-                            <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">&euro;222.00</a></h4>
-                            </div>
-                        </div>
-                        </li>
-                        <li class="span3">
-                        <div class="thumbnail">
-                            <a href="product_details.html"><img src="themes/images/products/12.jpg" alt=""/></a>
-                            <div class="caption">
-                            <h5>Manicure &amp; Pedicure</h5>
-                            <p> 
-                                Lorem Ipsum is simply dummy text. 
-                            </p>
-                            <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">&euro;222.00</a></h4>
-                            </div>
-                        </div>
-                        </li>
-                        <li class="span3">
-                        <div class="thumbnail">
-                            <a href="product_details.html"><img src="themes/images/products/13.jpg" alt=""/></a>
-                            <div class="caption">
-                            <h5>Manicure &amp; Pedicure</h5>
-                            <p> 
-                                Lorem Ipsum is simply dummy text. 
-                            </p>
-                            <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">&euro;222.00</a></h4>
-                            </div>
-                        </div>
-                        </li>
-                        <li class="span3">
-                        <div class="thumbnail">
-                            <a href="product_details.html"><img src="themes/images/products/1.jpg" alt=""/></a>
-                            <div class="caption">
-                            <h5>Manicure &amp; Pedicure</h5>
-                            <p> 
-                                Lorem Ipsum is simply dummy text. 
-                            </p>
-                            <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">&euro;222.00</a></h4>
-                            </div>
-                        </div>
-                        </li>
-                        <li class="span3">
-                        <div class="thumbnail">
-                            <a href="product_details.html"><img src="themes/images/products/2.jpg" alt=""/></a>
-                            <div class="caption">
-                            <h5>Manicure &amp; Pedicure</h5>
-                            <p> 
-                                Lorem Ipsum is simply dummy text. 
-                            </p>
-                            <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">&euro;222.00</a></h4>
-                            </div>
-                        </div>
-                        </li>
+
+                        <script>
+                
+                                document.getElementById("stars{{ forloop.counter }}").innerHTML = getStars({{ p.productRatings }});
+                        
+                        function getStars(rating) {
+                        
+                          // Round to nearest half
+                          rating = Math.round(rating * 2) / 2;
+                          let output = [];
+                        
+                          // Append all the filled whole stars
+                          for (var i = rating; i >= 1; i--)
+                            output.push('<i class="fa fa-star" aria-hidden="true" style="color: gold;"></i>&nbsp;');
+                        
+                          // If there is a half a star, append it
+                          if (i == .5) output.push('<i class="fa fa-star-half-o" aria-hidden="true" style="color: gold;"></i>&nbsp;');
+                        
+                          // Fill the empty stars
+                          for (let i = (5 - rating); i >= 1; i--)
+                            output.push('<i class="fa fa-star-o" aria-hidden="true" style="color: gold;"></i>&nbsp;');
+                        
+                          return output.join('');
+                        
+                        }
+                            </script>
+                    {% endfor %}
                     </ul>
                 <hr class="soft"/>
                 </div>

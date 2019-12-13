@@ -9,9 +9,16 @@
               <div class="thumbnail" style="width: 270px;height: 310.5px;">
                   <a  href="{% url 'Product-View' product.productId %}" style="width:260px; height: 160px;"><img src="{{ product.productImg.url }}" alt="" style="width: 160px; height: 160px;"/></a>
                   <div class="caption">
-                  <h5>{{ product.productTitle }}</h5>
+                  <a href="{% url 'Product-View' product.productId %}"><h5>{{ product.productTitle }}</h5></a>
                   
-                  <h4 style="text-align: justify;"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="{% url 'Add-To-Cart' product.productId %}">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">Rs{{ product.marketPrice }}</a></h4>
+                  <h4 style="text-align: justify;" style="align-content: center;">
+                    {% if user.is_authenticated %}
+                      <a class="btn" href="{% url 'Add-To-Cart' product.productId %}">Add to <i class="icon-shopping-cart"></i></a> 
+                    {% else %}
+                      <a class="btn" href="{% url 'Login' %}">Add to <i class="icon-shopping-cart"></i></a> 
+                    {% endif %}
+                    <a class="btn btn-primary" href="#">Rs{{ product.discountedPrice }}</a>
+                  </h4>
                   <b>Rating: <span id='stars{{ forloop.counter }}'></span></b>
               </div>
               </div>

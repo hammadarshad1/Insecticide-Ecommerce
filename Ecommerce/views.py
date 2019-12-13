@@ -16,8 +16,9 @@ class ProductsListView(ListView):
 
 def product_view(request, pk):
     product = models.Products.objects.get(productId=pk)
+    relatedProduct = models.Products.objects.filter(Q(productCategory = product.productCategory) & ~Q(productId = product.productId))
     print(product)
-    return render(request, 'Ecommerce/product.html', {'product':product})
+    return render(request, 'Ecommerce/product.html', {'product':product, 'relatedProducts': relatedProduct[0:5]})
 
 def about(request):
     return render(request, 'Ecommerce/about.html')
