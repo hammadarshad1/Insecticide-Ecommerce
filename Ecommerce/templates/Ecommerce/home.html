@@ -1,7 +1,9 @@
 {% extends 'Ecommerce/base.html' %}
 {% load shuffle %}
 {% block content %}
-            
+    
+
+
     <h2 >&nbsp;&nbsp;&nbsp;&nbsp;Latest Products </h2>
     <ul class="thumbnails">
         {% for product in object_list|shuffle %}

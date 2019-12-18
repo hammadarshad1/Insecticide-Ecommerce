@@ -1,0 +1,33 @@
+{% extends 'Ecommerce/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+	<div class="span9">
+		<h3> Product New</h3>	
+		<div class="well">
+		<form class="form-horizontal" action="{% url 'New-Product' %}" method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+			<h4>Add Product</h4>
+			{{ form|crispy }}
+		
+		<div class="control-group">
+				<div class="controls">
+					<input type="hidden" name="email_create" value="1">
+					<input type="hidden" name="is_new_customer" value="1">
+					<input class="btn btn-large btn-success" type="submit" value="Submit" />
+				</div>
+			</div>		
+		</form>
+	</div>
+
+	</div>
+	</div>
+	</div>
+	</div>
+
+	<script>
+		$("#category").on('change', function(){
+			val = $("#category option:selected").val();
+			$("#cat").val(val);
+		});
+	</script>
+{% endblock %}

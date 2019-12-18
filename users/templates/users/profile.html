@@ -26,57 +26,56 @@
   width: 30em;
   text-align: center;
   align-content: center;
-}
-textarea{
-    width: 30em;
-}
-    </style>
+  }
+  textarea, select{
+      width: 30em;
+      text-align: center;
+  }
+      </style>
 
-    <div id="mainBody">
-        <div class="container">
-        <div class="row">
-        <div class="span8">
-        
-        <div class="well">
-        <div class="card" style="width: 100%;">
-            <div class="card-header">
-            </div>
-            <ul class="list-group list-group-flush">
-              <div class="content-section">
-                <div class="col-md-8">
-                    <br>
-                <div class="media">
-                  <img class="rounded-circle account-img" width="90px" height="90px" src="{{ user.profile.img.url }}">
-                  <div class="media-body">
-                    <h2 class="account-heading">&nbsp;{{ user.username }}</h2>
-                    <p class="text-secondary">&nbsp;{{ user.email }}</p>
+      <div id="mainBody">
+          <div class="container">
+          <div class="row">
+          <div class="span8">
+          
+          <div class="well">
+          <div class="card" style="width: 100%;">
+              <div class="card-header">
+              <ul class="list-group list-group-flush">
+                <div class="content-section">
+                  <div class="col-md-8">
+                      <br>
+                  <div class="media"  style="text-align: center;">
+                    <img class="rounded-circle account-img" width="90px" height="90px" src="{{ user.profile.img.url }}">
+                    <div class="media-body" >
+                      <h2 class="account-heading">&nbsp;{{ user.username }}</h2>
+                      <p class="text-secondary">&nbsp;{{ user.email }}</p>
+                    </div>
+                  </div>
+                  <form method="POST" enctype="multipart/form-data" style="text-align: center;">
+                      {% csrf_token %}
+                      <fieldset class="form-group">
+                          <legend class="border-bottom mb-4">Profile Info</legend>
+                          {{ u_form|crispy }}
+                          {{ p_form|crispy }}
+                      </fieldset>
+                      <div class="form-group">
+                          <button class="btn btn-outline-info" type="submit">Update</button>
+                      </div>
+                  </form>
                   </div>
                 </div>
-                <form method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <fieldset class="form-group">
-                        <legend class="border-bottom mb-4">Profile Info</legend>
-                        {{ u_form|crispy }}
-                        {{ p_form|crispy }}
-                    </fieldset>
-                    <div class="form-group">
-                        <button class="btn btn-outline-info" type="submit">Update</button>
-                    </div>
-                </form>
-                </div>
-              </div>
-            </ul>
-          </div>
-    </div>
+              </ul>
+            </div>
 
-    </div>
-    </div>
-    </div>
-    </div>
-    <script>
-        $("textarea").attr('rows',5)
-    </script>
-<!-- MainBody End ============================= -->
+            </div>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+      <script>
+          $("textarea").attr('rows',5)
+      </script>
+  <!-- MainBody End ============================= -->
 {% endblock %}
-
-

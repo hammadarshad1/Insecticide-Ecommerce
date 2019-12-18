@@ -14,8 +14,11 @@ def item_in_cart(request):
                               on C.productId_id = P.productId
                               where C.userId_id=%s''',[request.user.id])
     items = cursor.fetchall()
+    categories = cursor.execute('''select categoryName, categoryId from Ecommerce_category''')
+    categories = cursor.fetchall()
+    slider = m.SliderImage.objects.all()
     if items[0][0] == None:
     	price = 0
     else:
         price = items[0][0]
-    return {'Cart':items[0][1], 'Price':price, 'product':product[2]}
+    return {'Cart':items[0][1], 'Price':price, 'product':product[2], 'slider':slider, 'categories':categories}

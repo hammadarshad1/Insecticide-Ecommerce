@@ -28,7 +28,7 @@ class UserUpdateForm(forms.ModelForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = models.Profile
-        fields = ['img', 'cnic', 'phoneNo', 'address', 'dateOfBirth']
+        fields = ['img', 'gender', 'cnic', 'phoneNo', 'address', 'dateOfBirth']
         labels = {
             'dateOfBirth': ('D.O.B'),
         }

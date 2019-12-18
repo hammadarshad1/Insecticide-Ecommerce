@@ -14,8 +14,8 @@
                 </div>
                 <div class="span6">
                     <h3>{{ product.productTitle }}</h3>
-                    <hr class="soft"/>
-                    <form class="form-horizontal qtyFrm">
+                    <!-- <hr class="soft"/> -->
+                    <!-- <form class="form-horizontal qtyFrm">
                     <div class="control-group">
                         <label class="control-label"><span>{{ product.discountedPrice }}</span></label>
                         <div class="controls">
@@ -23,17 +23,17 @@
                         <a href="{% url 'Add-To-Cart' product.productId %}"><button type="button" class="btn btn-large btn-primary pull-right"> Add to cart <i class=" icon-shopping-cart"></i></button></a>
                         </div>
                     </div>
-                    </form>
+                    </form> -->
                     
-                    <hr class="soft"/>
-                    <p>
+                    <!-- <hr class="soft"/> -->
+                    <!-- <p>
                     14 Megapixels. 18.0 x Optical Zoom. 3.0-inch LCD Screen. Full HD photos and 1280 x 720p HD movie capture. ISO sensitivity ISO6400 at reduced resolution. 
                     Tracking Auto Focus. Motion Panorama Mode. Face Detection technology with Blink detection and Smile and shoot mode. 4 x AA batteries not included. WxDxH 110.2 ×81.4x73.4mm. 
                     Weight 0.341kg (excluding battery and memory card). Weight 0.437kg (including battery and memory card).
                     
-                    </p>
-                    <a class="btn btn-small pull-right" href="#detail">More Details</a>
-                    <br class="clr"/>
+                    </p> -->
+                    <!-- <a class="btn btn-small pull-right" href="#detail">More Details</a> -->
+                    <!-- <br class="clr"/> -->
                 <a href="#" name="detail"></a>
                 <hr class="soft"/>
                 </div>
@@ -49,6 +49,7 @@
                     <p>
                     {{ product.productDescription }}
                     </p>
+                    <hr><br><br>
                 </div>
             <div class="tab-pane fade" id="profile">
             <div id="myTab" class="pull-right">
@@ -174,5 +175,53 @@
     </div>
     </div> </div>
     </div>
+    <div class="row bootstrap snippets">
+        <div class="col-md-6 col-md-offset-2 col-sm-12">
+            <div class="comment-wrapper">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        Comment panel
+                    </div>
+                    <div class="panel-body">
+                        <form action="{% url 'Product-View' product.productId %}" method="POST">
+                            {% csrf_token %}
+                            <input type="text" style="display: none;" name="text" id="text">
+                            <textarea class="form-control" placeholder="write a comment..." rows="3" id="comment"></textarea>
+                            <br>
+                            <button type="submit" class="btn btn-info pull-right">Post</button>
+                        </form>
+                        <div class="clearfix"></div>
+                        <hr>
+                        <ul class="media-list">
+                            {% for c in comment %}
+                            <li class="media">
+                                <a href="#" class="pull-left">
+                                    <img src="https://bootdey.com/img/Content/user_3.jpg" alt="" class="img-circle">
+                                </a>
+                                <div class="media-body">
+                                    <span class="text-muted pull-right">
+                                        <!-- <small class="text-muted">30 min ago</small> -->
+                                    </span>
+                                    <strong class="text-success">@{{ c.userId.username }}</strong>
+                                    <p>
+                                        {{ c.commentText }}
+                                    </p>
+                                </div>
+                            </li>
+                            <hr>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+
+    <script>
+        $("#comment").on('blur', function(){
+            $("#text").val($('#comment').val());
+        });
+    </script>
     <!-- MainBody End ============================= -->
 {% endblock %}

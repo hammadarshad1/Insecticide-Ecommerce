@@ -22,6 +22,7 @@
     
 <!-- Bootstrap style --> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link id="callCss" rel="stylesheet" href="{% static 'Ecommerce/themes/bootshop/bootstrap.min.css' %}" media="screen"/>
     <link href="{% static 'Ecommerce/themes/css/base.css' %}" rel="stylesheet" media="screen"/>
 <!-- Bootstrap style responsive -->	
@@ -30,6 +31,10 @@
 <!-- Google-code-prettify -->	
     <link href="{% static 'Ecommerce/themes/js/google-code-prettify/prettify.css' %}" rel="stylesheet"/>
 <!-- fav and touch icons -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <link rel="shortcut icon" href="{% static 'Ecommerce/themes/images/ico/favicon.ico' %}">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="themes/images/ico/apple-touch-icon-144-precomposed.png">
@@ -37,10 +42,13 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link src="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
     <style type="text/css" id="enject"></style>
 </head>
 <body>
+
+    
 <!-- <div id="header">
 <div class="container"><div id="carouselBlk">
         <div id="myCarousel" class="carousel slide">
@@ -118,16 +126,20 @@
     <span class="icon-bar"></span>
 </a>
 <div class="navbar-inner">
-    <a class="brand" href="{% url 'Home' %}"><img src="themes/images/logo.png" alt="Bootsshop"/></a>
+    <a class="brand" href="{% url 'Home' %}"><img src="themes/images/logo.png" alt="INSECTICIDE"/></a>
         <form class="form-inline navbar-search" method="post" action="{% url 'Search' %}" >
             {% csrf_token %}
         <input id="search-products" class="srchTxt" name="search" type="text" placeholder="Search Whatever you want!" style="width:500px;" /> 
         <button type="submit" id="submitButton" class="btn btn-primary">Go</button>
     </form>
     <ul id="topMenu" class="nav pull-right">
-    <li class=""><a href="special_offer.html">Specials Offer</a></li>
+    {% if user.is_authenticated %}
+        <li class="">
+            <a href="{% url 'New-Product' %}"><button class="btn btn-info" style="font-size: 18px;"><b>+</b></button></a>
+        </li>
+    {% endif %}
     <li class="">
-                <a href="{% url 'Cart' %}"><span class="btn  btn-primary"><i class="icon-shopping-cart icon-white"></i>[ {{ Cart }} ]</span> </a> 
+                <a href="{% url 'Cart' %}"><span class="btn  btn-primary">[ {{ Cart }} ]<i class="icon-shopping-cart icon-white"></i>  Rs:{{ Price }} </span> </a> 
             </li>
     {% if user.is_authenticated %}
         <li class=""><a href="{% url 'Profile' %}"><i class="fas fa-user"></i></a></li>
@@ -166,135 +178,96 @@
 </div>
 </div>
 </div>
-</div>
-<!-- Header End====================================================================== -->
-<!-- <div id="carouselBlk">
-    <div id="myCarousel" class="carousel slide">
-        <div class="carousel-inner">
-        <div class="item active">
-        <div class="container">
-            <a href="register.html"><img style="width:100%" src="themes/images/carousel/1.png" alt="special offers"/></a>
-            <div class="carousel-caption">
-                <h4>Second Thumbnail label</h4>
-                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                </div>
-        </div>
-        </div>
-        <div class="item">
-        <div class="container">
-            <a href="register.html"><img style="width:100%" src="themes/images/carousel/2.png" alt=""/></a>
-                <div class="carousel-caption">
-                <h4>Second Thumbnail label</h4>
-                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                </div>
-        </div>
-        </div>
-        <div class="item">
-        <div class="container">
-            <a href="register.html"><img src="themes/images/carousel/3.png" alt=""/></a>
-            <div class="carousel-caption">
-                <h4>Second Thumbnail label</h4>
-                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                </div>
-            
-        </div>
-        </div>
-        <div class="item">
-        <div class="container">
-            <a href="register.html"><img src="themes/images/carousel/4.png" alt=""/></a>
-            <div class="carousel-caption">
-                <h4>Second Thumbnail label</h4>
-                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                </div>
+</div>{% if messages %}
+{% for message in messages %}
+  <div class="alert alert-{{ message.tags }}" style=" text-align: center;position: initial;">
+    {{ message }}
+  </div>
+{% endfor %}
+{% endif %}
+{% if sliderAllow == 1 %}
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <!-- <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+            <li data-target="#myCarousel" data-slide-to="4"></li>
+            <li data-target="#myCarousel" data-slide-to="5"></li>
+        </ol> -->
         
-        </div>
-        </div>
-        <div class="item">
-        <div class="container">
-            <a href="register.html"><img src="themes/images/carousel/5.png" alt=""/></a>
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            {% for p in slider %}
+                {% if forloop.counter == 1 %}
+                <div class="item active">
+                {% else %}
+                <div class="item">
+                {% endif %}
+                    <img src="{{ p.sliderImg.url }}" alt="Image" style="width: 100%; height: 400px;">
             <div class="carousel-caption">
-                <h4>Second Thumbnail label</h4>
-                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                <h3>{{ p.sliderTitle }}</h3>
+                <p>{{ p.sliderTeaser }}</p>
             </div>
-        </div>
-        </div>
-        <div class="item">
-        <div class="container">
-            <a href="register.html"><img src="themes/images/carousel/6.png" alt=""/></a>
-            <div class="carousel-caption">
-                <h4>Second Thumbnail label</h4>
-                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
                 </div>
+            {% endfor %}
+            </div>
+        
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
-        </div>
-        </div>
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
-    </div> 
-</div> -->
-{% if messages %}
-                  {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }}" style=" text-align: center;position: initial;">
-                      {{ message }}
-                    </div>
-                  {% endfor %}
-            {% endif %}
+{% endif %}
+<!-- Header End====================================================================== -->
+
 <div id="mainBody">
-        <div id="sidebar" class="span3">
+        <div id="sidebar" class="span3" style="float: right; height: 100vh;background-color: silver;">
                 <div class="well well-small"><a id="myCart" href="{% url 'Cart' %}"><img src="{% static 'Ecommerce/themes/images/ico-cart.png' %}">{{ Cart }} Items in your cart  <span class="badge badge-warning pull-right"><b>Rs{{ Price }}</b></span></a></div>
                 <ul id="sideManu" class="nav nav-tabs nav-stacked">
-                    <li class="subMenu"><a> ELECTRONICS [230]</a>
-                        <ul>
+                    <li class="sunMenu" style="text-align: center;"><a href="{% url 'Category-Add' %}"><button class="btn btn-info">Add Category</button></a></li>
+                    {% for cat in categories %}
+                    <li class="subMenu"><a value="{{ cat.1 }}"> {{ cat.0 }} []</a>
+                        <!-- <ul>
                         <li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Cameras (100) </a></li>
                         <li><a href="products.html"><i class="icon-chevron-right"></i>Computers, Tablets & laptop (30)</a></li>
                         <li><a href="products.html"><i class="icon-chevron-right"></i>Mobile Phone (80)</a></li>
                         <li><a href="products.html"><i class="icon-chevron-right"></i>Sound & Vision (15)</a></li>
-                        </ul>
+                        </ul> -->
                     </li>
-                    <li class="subMenu"><a> CLOTHES [840] </a>
-                    <ul style="display:none">
-                        <li><a href="products.html"><i class="icon-chevron-right"></i>Women's Clothing (45)</a></li>
-                        <li><a href="products.html"><i class="icon-chevron-right"></i>Women's Shoes (8)</a></li>												
-                        <li><a href="products.html"><i class="icon-chevron-right"></i>Women's Hand Bags (5)</a></li>	
-                        <li><a href="products.html"><i class="icon-chevron-right"></i>Men's Clothings  (45)</a></li>
-                        <li><a href="products.html"><i class="icon-chevron-right"></i>Men's Shoes (6)</a></li>												
-                        <li><a href="products.html"><i class="icon-chevron-right"></i>Kids Clothing (5)</a></li>												
-                        <li><a href="products.html"><i class="icon-chevron-right"></i>Kids Shoes (3)</a></li>												
-                    </ul>
-                    </li>
-                    <li class="subMenu"><a>FOOD AND BEVERAGES [1000]</a>
-                        <ul style="display:none">
-                        <li><a href="products.html"><i class="icon-chevron-right"></i>Angoves  (35)</a></li>
-                        <li><a href="products.html"><i class="icon-chevron-right"></i>Bouchard Aine & Fils (8)</a></li>												
-                        <li><a href="products.html"><i class="icon-chevron-right"></i>French Rabbit (5)</a></li>	
-                        <li><a href="products.html"><i class="icon-chevron-right"></i>Louis Bernard  (45)</a></li>
-                        <li><a href="products.html"><i class="icon-chevron-right"></i>BIB Wine (Bag in Box) (8)</a></li>												
-                        <li><a href="products.html"><i class="icon-chevron-right"></i>Other Liquors & Wine (5)</a></li>												
-                        <li><a href="products.html"><i class="icon-chevron-right"></i>Garden (3)</a></li>												
-                        <li><a href="products.html"><i class="icon-chevron-right"></i>Khao Shong (11)</a></li>												
-                    </ul>
-                    </li>
-                    <li><a href="products.html">HEALTH & BEAUTY [18]</a></li>
-                    <li><a href="products.html">SPORTS & LEISURE [58]</a></li>
-                    <li><a href="products.html">BOOKS & ENTERTAINMENTS [14]</a></li>
+                    {% endfor %}
+                    
                 </ul>
                 <br/>
                 <br/>
             </div>
-    <div class="container">
+    <div class="">
+            <div>
+                    {% block content %}
+                    {% endblock %}	
+                </div>  
     <div class="row">
 <!-- Sidebar ================================================== -->
    
 <!-- Sidebar end=============================================== -->
         
-        
-        {% block content %}
-        {% endblock %}	
+<!-- <br><br><br><br><br><br> -->
+
 
         </div>
+        
         </div>
+        
     </div>
+ 
 </div>
+
 <!-- Footer ================================================================== -->
     <div  id="footerSection">
     <div class="container">
