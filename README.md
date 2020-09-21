@@ -3,8 +3,9 @@ Simple Ecommerce web based solution for Insecticide & Pesticides Shop you that c
 
 ## Enviroment Setup:
 ```
-$ git clone https://www.github.com/hammadarshad1/Django-Boiler-Plate
+$ git clone https://www.github.com/hammadarshad1/Insecticide-Ecommerce
 $ python3 -m venv venv
+$ source venv/bin/activate
 ```
 
 ## Installation:
